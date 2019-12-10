@@ -43,7 +43,7 @@ class BubbleSort_JumpSearch {
         array_unsorted_main = sort.getArrayList();
 
         JumpSearch search = new JumpSearch();
-        BufferedReader freader = new BufferedReader(FileDirectories.directory());
+        BufferedReader freader = new BufferedReader(FileDirectories.find());
         search.searchJump(array_unsorted_main, freader);
         freader.close();
         int founded = search.getFound();
