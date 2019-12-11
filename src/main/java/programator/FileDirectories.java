@@ -6,10 +6,10 @@ import java.io.FileReader;
 class FileDirectories {
 
     static FileReader find() throws FileNotFoundException {
-        return new FileReader("src/main/directory/find.txt");
+        return new FileReader("src/directory/find.txt");
     }
 
     static FileReader directory() throws FileNotFoundException {
-        return new FileReader("src/main/directory/directory.txt");
+        return new FileReader("src/directory/directory.txt");
     }
 }

@@ -5,6 +5,7 @@ import java.util.List;
 
 
 public class MultithreadedBubbleSort implements Runnable {
+
     private List<Person> arrayList;
     private int threshold;
     private int middle;
@@ -17,29 +18,27 @@ public class MultithreadedBubbleSort implements Runnable {
         this.arrayList = arrayList;
     }
 
-
     MultithreadedBubbleSort(List<Person> arrayList, int threshold) {
         this.arrayList = arrayList;
         this.threshold = threshold;
         this.middle = arrayList.size() / 2;
-
     }
-
 
     @Override
     public void run() {
 
         if (arrayList.size() <= threshold) {
-            sort();
+            Sort sort = new Sort();
+            sort.bubbleSort(arrayList);
         } else {
             MultithreadedBubbleSort rLeft = new MultithreadedBubbleSort(arrayList.subList(0, middle), threshold);
             MultithreadedBubbleSort rRight = new MultithreadedBubbleSort(arrayList.subList(middle, arrayList.size()), threshold);
-
-
             Thread tLeft = new Thread(rLeft);
             Thread tRight = new Thread(rRight);
+
             tRight.start();
             tLeft.start();
+
             try {
                 tLeft.join();
                 tRight.join();
@@ -47,21 +46,14 @@ public class MultithreadedBubbleSort implements Runnable {
                 e.printStackTrace();
             }
 
-
             merge(rLeft.arrayList, rRight.arrayList);
         }
-        synchronized (this) {
-            if (this.arrayList.size() == 1014130) {
-                setArrayList(arrayList);
-
-
-
-            }
-        }
-
-
+//        synchronized (this) {
+//            if (this.arrayList.size() == 1014130) {
+//                setArrayList(arrayList);
+//            }
+//        }
     }
-
 
     private void merge(List<Person> left, List<Person> right) {
         int i = 0, j = 0, k = 0;
@@ -89,24 +81,5 @@ public class MultithreadedBubbleSort implements Runnable {
         arrayList = temp;
     }
 
-    private void sort() {
-        Person temp;
-        long length = arrayList.size();
 
-        for (int i = 0; i < length - 1; i++) {
-            boolean swapped = false;
-            for (int j = 0; j < length - 1 - i; j++) {
-                if (arrayList.get(j).getName().compareTo(arrayList.get(j + 1).getName()) > 0) {
-                    temp = arrayList.get(j);
-                    arrayList.set(j, arrayList.get(j + 1));
-                    arrayList.set(j + 1, temp);
-                    swapped = true;
-                }
-            }
-            if (!swapped) {
-                break;
-            }
-
-        }
-    }
 }

@@ -1,5 +1,7 @@
 package programator;
 
+import java.util.Comparator;
+
 public class Person {
     private String name;
     private String number;
@@ -15,9 +17,11 @@ public class Person {
 
     @Override
     public String toString() {
-        return  "\n"+"Person{" +
+        return "\n" + "Person{" +
                 "name='" + name + '\'' +
                 ", number='" + number + '\'' +
                 '}';
     }
+
+
 }

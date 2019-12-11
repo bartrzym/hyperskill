@@ -2,21 +2,17 @@ package programator;
 
 
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
-import java.util.HashMap;
+import java.util.Hashtable;
 
-public class HashMapSearch {
+class HashTableSearch {
 
-    public static void main(String[] args) throws IOException {
-        long start = System.currentTimeMillis();
-        System.out.println("Start searching(HashMap)...");
+    void hashTableSearch() throws IOException {
+        long startTime = System.currentTimeMillis();
+        System.out.println("Start searching(hash table)...");
 
+        Hashtable<String, String> map = new Hashtable<>();
 
-
-        HashMap<String, String> map = new HashMap<>();
-
-        long end;
         int founded = 0;
         int total = 0;
         String line;
@@ -32,6 +28,8 @@ public class HashMapSearch {
         }
         dreader.close();
 
+        long midtime = System.currentTimeMillis();
+        long sortTime = midtime - startTime;
 
         BufferedReader freader = new BufferedReader(FileDirectories.find());
         while ((line = freader.readLine()) != null) {
@@ -43,12 +41,13 @@ public class HashMapSearch {
         freader.close();
 
 
-        end = System.currentTimeMillis();
-        long result = end - start;
-        int min = (int) (result / 1000 / 60);
-        int sec = (int) ((result - (min * 1000 * 60)) / 1000);
-        int ms = (int) (result - ((min * 1000 * 60) + (sec * 1000)));
-        System.out.println("Found " + founded + "/" + total + ". Time taken: " + min + "min. " + sec + "sec. " + ms + "ms.");
+        long endTime = System.currentTimeMillis();
+        long result = endTime - startTime;
+        long searchTime = result - sortTime;
+
+        System.out.println("Found " + founded + "/" + total + ". Time taken:" + TimeFormater.formatter(result));
+        System.out.println("Creating Time:" + TimeFormater.formatter(sortTime));
+        System.out.println("Searching Time:" + TimeFormater.formatter(searchTime));
 
     }
 }
